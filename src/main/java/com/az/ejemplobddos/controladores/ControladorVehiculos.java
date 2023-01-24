@@ -2,6 +2,7 @@ package com.az.ejemplobddos.controladores;
 
 import com.az.ejemplobddos.entidades.Vehiculo;
 import com.az.ejemplobddos.repositorios.RepositorioVehiculos;
+import com.az.ejemplobddos.servicios.ServicioVehiculos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,12 @@ public class ControladorVehiculos {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ControladorVehiculos.class);
     RepositorioVehiculos repoVehiculos;
+    ServicioVehiculos servVehiculos;
 
-    public ControladorVehiculos(RepositorioVehiculos repoVehiculos) {
+    public ControladorVehiculos(RepositorioVehiculos repoVehiculos,
+                                ServicioVehiculos servVehiculos) {
         this.repoVehiculos = repoVehiculos;
+        this.servVehiculos = servVehiculos;
     }
 
     @GetMapping("vehiculos")
@@ -46,7 +50,7 @@ public class ControladorVehiculos {
             @RequestBody Vehiculo nuevoV
     ) {
        try {
-           this.repoVehiculos.save(nuevoV);
+           this.servVehiculos.guardarNuevo(nuevoV);
            return ResponseEntity
                    .created(new URI("vehiculos/" + nuevoV.getPlacas()))
                    .body(nuevoV);
