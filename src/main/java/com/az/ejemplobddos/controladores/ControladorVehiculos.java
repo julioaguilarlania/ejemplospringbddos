@@ -1,12 +1,9 @@
 package com.az.ejemplobddos.controladores;
 
-import com.az.ejemplobddos.entidades.Entrada;
 import com.az.ejemplobddos.entidades.Vehiculo;
-import com.az.ejemplobddos.repositorios.RepositorioEntradas;
 import com.az.ejemplobddos.repositorios.RepositorioVehiculos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class ControladorRestVehiculos {
+public class ControladorVehiculos {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ControladorRestVehiculos.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ControladorVehiculos.class);
     RepositorioVehiculos repoVehiculos;
 
-    public ControladorRestVehiculos(RepositorioVehiculos repoVehiculos) {
+    public ControladorVehiculos(RepositorioVehiculos repoVehiculos) {
         this.repoVehiculos = repoVehiculos;
     }
 
