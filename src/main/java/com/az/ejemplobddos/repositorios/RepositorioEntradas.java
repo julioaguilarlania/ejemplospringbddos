@@ -2,9 +2,11 @@ package com.az.ejemplobddos.repositorios;
 
 import com.az.ejemplobddos.entidades.Entrada;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface RepositorioEntradas extends JpaRepository<Entrada,Integer> {
@@ -20,4 +22,9 @@ public interface RepositorioEntradas extends JpaRepository<Entrada,Integer> {
             " GROUP BY DATE_TRUNC(MONTH,FECHA_SALIDA)" +
             " ORDER BY DATE_TRUNC(MONTH,FECHA_SALIDA)", nativeQuery = true)
     List<Object[]> obtenerTotalesPorMes();
+
+    @Modifying
+    @Query(value = "UPDATE entradas SET fecha_salida = :fecha" +
+            " WHERE fecha_salida IS NULL", nativeQuery = true)
+    int cerrarEntradasPendientes(@Param("fecha")LocalDateTime fSalida);
 }

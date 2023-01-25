@@ -1,6 +1,9 @@
 package com.az.ejemplobddos.entidades;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
@@ -12,12 +15,17 @@ public class Cliente {
     private Integer clienteId;
 
     @Basic
+    @NotBlank
+    @Size(max = 200)
     private String nombre;
 
     @Basic
+    @NotBlank
+    @Size(max = 20)
     private String curp;
 
     @Basic
+    @PastOrPresent
     @Column(name="fecha_registro")
     private LocalDate fechaRegistro;
 

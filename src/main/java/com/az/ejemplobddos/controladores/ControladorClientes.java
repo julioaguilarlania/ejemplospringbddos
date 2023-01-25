@@ -4,8 +4,10 @@ import com.az.ejemplobddos.entidades.Cliente;
 import com.az.ejemplobddos.entidades.Vehiculo;
 import com.az.ejemplobddos.repositorios.RepositorioClientes;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -38,8 +40,9 @@ public class ControladorClientes {
 
     @PostMapping("clientes")
     public ResponseEntity<Cliente> crear(
-            @RequestBody Cliente nuevoC
-    ) {
+            @RequestBody @Valid Cliente nuevoC
+            //, Errors errores
+            ) {
         try {
             this.repoClientes.save(nuevoC);
             return ResponseEntity
