@@ -83,4 +83,13 @@ public class ControladorVehiculos {
         this.repoVehiculos.deleteById(p);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping(value="vehiculos", params={"k1","k2"})
+    public List<Vehiculo> getPorRangoKilometraje(
+            @RequestParam("k1") Double k1,
+            @RequestParam("k2") Double k2
+    ) {
+        LOGGER.debug("GET porKilometraje: {}, {}", k1, k2);
+        return this.repoVehiculos.buscarPorKilometraje(k1,k2);
+    }
 }
