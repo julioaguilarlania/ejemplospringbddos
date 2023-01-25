@@ -13,4 +13,11 @@ public interface RepositorioEntradas extends JpaRepository<Entrada,Integer> {
     @Query(value = "SELECT placas,fecha_ingreso FROM entradas WHERE estatus = :status",
             nativeQuery = true)
     List<Entrada> buscarPorEstatus(@Param("status") String st);
+
+    @Query(value = "SELECT DATE_TRUNC(MONTH,FECHA_SALIDA) AS FECHA_SALIDA," +
+            " COUNT(ENTRADA_ID) AS TOTAL" +
+            " FROM ENTRADAS" +
+            " GROUP BY DATE_TRUNC(MONTH,FECHA_SALIDA)" +
+            " ORDER BY DATE_TRUNC(MONTH,FECHA_SALIDA)", nativeQuery = true)
+    List<Object[]> obtenerTotalesPorMes();
 }
