@@ -14,7 +14,7 @@
 	<name>Ejemplo BD Dos</name>
 	<description>Proyecto usando persistencia</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>11</java.version><!-- 17 -->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -44,6 +44,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
 	</dependencies>
 

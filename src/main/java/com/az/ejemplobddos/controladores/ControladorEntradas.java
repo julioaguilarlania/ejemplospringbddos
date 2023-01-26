@@ -6,12 +6,17 @@ import com.az.ejemplobddos.repositorios.RepositorioEntradas;
 import com.az.ejemplobddos.repositorios.RepositorioV_TotalesPorMes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,7 +31,8 @@ public class ControladorEntradas {
         this.repoTotales = repoTotales;
     }
 
-    @GetMapping("entradas/en_progreso")
+    @GetMapping(value="entradas/en_progreso",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Entrada> getEntradasEnProgreso() {
         return repoEntradas.findByEstatus("EN_PROGRESO");
     }
@@ -51,4 +57,18 @@ public class ControladorEntradas {
                 .header("Actualizados", String.valueOf(conteo))
                 .build();
     }
+
+    @GetMapping("bajo_nivel")
+    public ResponseEntity metodo(HttpServletRequest peticion,
+                                 HttpServletResponse respuesta,
+                                 HttpSession sesion,
+                                 @RequestParam("val") String val) {
+        LOGGER.debug("Peticion de tipo {}", peticion.getContentType());
+        String valorGuardado = (String) sesion.getAttribute("VALOR");
+        if (valorGuardado == null) valorGuardado = "";
+        valorGuardado = valorGuardado + "," + val;
+        sesion.setAttribute("VALOR", valorGuardado);
+        return ResponseEntity.ok(valorGuardado);
+    }
+
 }
