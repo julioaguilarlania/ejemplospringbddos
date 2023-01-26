@@ -4,12 +4,14 @@ import com.az.ejemplobddos.entidades.Cliente;
 import com.az.ejemplobddos.entidades.Vehiculo;
 import com.az.ejemplobddos.repositorios.RepositorioClientes;
 import com.az.ejemplobddos.repositorios.RepositorioVehiculos;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Service
+//@Service
+@Component
 public class ServicioVehiculos {
 
     RepositorioVehiculos repoVehiculos;
